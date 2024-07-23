@@ -5,6 +5,8 @@
 ```
 docker pull v1st233/iptv:latest
 docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> v1st233/iptv:latest
+# username: admin
+# password: password
 ```
 ### 手动版
 #### 安装jdk 8
