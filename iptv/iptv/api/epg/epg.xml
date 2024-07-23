@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<epgs>
+
+	<epg>
+		<tvid>596</tvid>
+		<epgid>cntv-cctv1</epgid>
+		<name>CCTV-1,CCTV-1高清,CCTV-1综合,CCTV-1综合HD,CCTV1高清,CCTV1综合高清,CCTV1综合,CCTV1 高清,CCTV1</name>
+		<status>1</status>
+		<note>CCTV-1综合</note>
+	</epg>
+
+	<epg>
+		<tvid>648</tvid>
+		<epgid>tvmao-CCTV-CCTV3</epgid>
+		<name>CCTV-3综艺</name>
+		<status>1</status>
+		<note>CCTV-3</note>
+	</epg>
+	
+	<epg>
+		<tvid>599</tvid>
+		<epgid>cntv-cctv4</epgid>
+		<name>CCTV-4中文国际,CCTV4</name>
+		<status>1</status>
+		<note>CCTV-4中文国际</note>
+	</epg>
+
+	<epg>
+		<tvid>600</tvid>
+		<epgid>cntv-cctv5</epgid>
+		<name>CCTV-5体育</name>
+		<status>1</status>
+		<note>CCTV-5体育</note>
+	</epg>
+
+	<epg>
+		<tvid>601</tvid>
+		<epgid>cntv-cctv5plus</epgid>
+		<name>CCTV-5+体育,CCTV-5+</name>
+		<status>1</status>
+		<note>CCTV5+体育赛事</note>
+	</epg>
+
+	<epg>
+		<tvid>602</tvid>
+		<epgid>cntv-cctv6</epgid>
+		<name>CCTV-6电影,CCTV-6</name>
+		<status>1</status>
+		<note>CCTV6-电影</note>
+	</epg>
+
+	<epg>
+		<tvid>603</tvid>
+		<epgid>cntv-cctv7</epgid>
+		<name>CCTV-7国防军事</name>
+		<status>1</status>
+		<note>CCTV7-国防军事</note>
+	</epg>
+
+	<epg>
+		<tvid>608</tvid>
+		<epgid>cntv-cctv8</epgid>
+		<name>CCTV-8电视剧</name>
+		<status>1</status>
+		<note>CCTV8-电视剧</note>
+	</epg>
+
+	<epg>
+		<tvid>609</tvid>
+		<epgid>cntv-cctvjilu</epgid>
+		<name>CCTV-9纪录</name>
+		<status>1</status>
+		<note>CCTV-9纪录</note>
+	</epg>
+
+	<epg>
+		<tvid>611</tvid>
+		<epgid>cntv-cctv10</epgid>
+		<name>CCTV-10科教</name>
+		<status>1</status>
+		<note>CCTV-10科技</note>
+	</epg>
+
+	<epg>
+		<tvid>612</tvid>
+		<epgid>cntv-cctv11</epgid>
+		<name>CCTV-11戏曲</name>
+		<status>1</status>
+		<note>CCTV-11戏曲</note>
+	</epg>
+
+	<epg>
+		<tvid>613</tvid>
+		<epgid>cntv-cctv12</epgid>
+		<name>CCTV-12社会与法</name>
+		<status>1</status>
+		<note>CCTV-12社会与法</note>
+	</epg>
+
+	<epg>
+		<tvid>614</tvid>
+		<epgid>cntv-cctv13</epgid>
+		<name>CCTV-13新闻</name>
+		<status>1</status>
+		<note>CCTV-13新闻</note>
+	</epg>
+
+	<epg>
+		<tvid>616</tvid>
+		<epgid>cntv-cctvchild</epgid>
+		<name>CCTV-14少儿</name>
+		<status>1</status>
+		<note>CCTV-14少儿</note>
+	</epg>
+
+	<epg>
+		<tvid>617</tvid>
+		<epgid>cntv-cctv15</epgid>
+		<name>CCTV-15音乐</name>
+		<status>1</status>
+		<note>CCTV-15音乐</note>
+	</epg>
+
+	<epg>
+		<tvid>618</tvid>
+		<epgid>cntv-cctv17</epgid>
+		<name>CCTV-17农业农村</name>
+		<status>1</status>
+		<note>CCTV-17农业农村</note>
+	</epg>
+
+	<epg>
+		<tvid>620</tvid>
+		<epgid>cntv-btv1</epgid>
+		<name>北京卫视高清,北京卫视</name>
+		<status>1</status>
+		<note>北京卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>620</tvid>
+		<epgid>cntv-btv1</epgid>
+		<name>北京卫视高清,北京卫视</name>
+		<status>1</status>
+		<note>北京卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>622</tvid>
+		<epgid>cntv-jiangsu</epgid>
+		<name>江苏卫视,江苏卫视高清</name>
+		<status>1</status>
+		<note>江苏卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>622</tvid>
+		<epgid>cntv-jiangsu</epgid>
+		<name>江苏卫视,江苏卫视高清</name>
+		<status>1</status>
+		<note>江苏卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>623</tvid>
+		<epgid>cntv-zhejiang</epgid>
+		<name>浙江卫视</name>
+		<status>1</status>
+		<note>浙江卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>624</tvid>
+		<epgid>cntv-dongfang</epgid>
+		<name>东方卫视,东方卫视高清</name>
+		<status>1</status>
+		<note>东方卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>624</tvid>
+		<epgid>cntv-dongfang</epgid>
+		<name>东方卫视,东方卫视高清</name>
+		<status>1</status>
+		<note>东方卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>625</tvid>
+		<epgid>cntv-anhui</epgid>
+		<name>安徽卫视高清,安徽卫视</name>
+		<status>1</status>
+		<note>安徽卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>625</tvid>
+		<epgid>cntv-anhui</epgid>
+		<name>安徽卫视高清,安徽卫视</name>
+		<status>1</status>
+		<note>安徽卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>626</tvid>
+		<epgid>cntv-shenzhen</epgid>
+		<name>深圳卫视,深圳卫视高清</name>
+		<status>1</status>
+		<note>深圳卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>626</tvid>
+		<epgid>cntv-shenzhen</epgid>
+		<name>深圳卫视,深圳卫视高清</name>
+		<status>1</status>
+		<note>深圳卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>627</tvid>
+		<epgid>cntv-guangdong</epgid>
+		<name>广东卫视,广东卫视高清</name>
+		<status>1</status>
+		<note>广东卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>627</tvid>
+		<epgid>cntv-guangdong</epgid>
+		<name>广东卫视,广东卫视高清</name>
+		<status>1</status>
+		<note>广东卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>628</tvid>
+		<epgid>cntv-heilongjiang</epgid>
+		<name>黑龙江卫视高清,黑龙江卫视</name>
+		<status>1</status>
+		<note>黑龙江卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>628</tvid>
+		<epgid>cntv-heilongjiang</epgid>
+		<name>黑龙江卫视高清,黑龙江卫视</name>
+		<status>1</status>
+		<note>黑龙江卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>629</tvid>
+		<epgid>cntv-chongqing</epgid>
+		<name>重庆卫视,重庆卫视高清</name>
+		<status>1</status>
+		<note>重庆卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>629</tvid>
+		<epgid>cntv-chongqing</epgid>
+		<name>重庆卫视,重庆卫视高清</name>
+		<status>1</status>
+		<note>重庆卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>630</tvid>
+		<epgid>cntv-liaoning</epgid>
+		<name>辽宁卫视,辽宁卫视高清</name>
+		<status>1</status>
+		<note>辽宁卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>630</tvid>
+		<epgid>cntv-liaoning</epgid>
+		<name>辽宁卫视,辽宁卫视高清</name>
+		<status>1</status>
+		<note>辽宁卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>632</tvid>
+		<epgid>cntv-guangxi</epgid>
+		<name>广西卫视,广西卫视高清</name>
+		<status>1</status>
+		<note>广西卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>632</tvid>
+		<epgid>cntv-guangxi</epgid>
+		<name>广西卫视,广西卫视高清</name>
+		<status>1</status>
+		<note>广西卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>633</tvid>
+		<epgid>cntv-dongnan</epgid>
+		<name>东南卫视</name>
+		<status>1</status>
+		<note>东南卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>634</tvid>
+		<epgid>cntv-guizhou</epgid>
+		<name>贵州卫视</name>
+		<status>1</status>
+		<note>贵州卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>635</tvid>
+		<epgid>cntv-hebei</epgid>
+		<name>河北卫视</name>
+		<status>1</status>
+		<note>河北卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>636</tvid>
+		<epgid>cntv-henan</epgid>
+		<name>河南卫视</name>
+		<status>1</status>
+		<note>河南卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>637</tvid>
+		<epgid>cntv-hubei</epgid>
+		<name>湖北卫视,湖北卫视高清</name>
+		<status>1</status>
+		<note>湖北卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>637</tvid>
+		<epgid>cntv-hubei</epgid>
+		<name>湖北卫视,湖北卫视高清</name>
+		<status>1</status>
+		<note>湖北卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>638</tvid>
+		<epgid>cntv-jiangxi</epgid>
+		<name>江西卫视</name>
+		<status>1</status>
+		<note>江西卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>639</tvid>
+		<epgid>cntv-shandong</epgid>
+		<name>山东卫视,山东卫视高清</name>
+		<status>1</status>
+		<note>山东卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>639</tvid>
+		<epgid>cntv-shandong</epgid>
+		<name>山东卫视,山东卫视高清</name>
+		<status>1</status>
+		<note>山东卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>640</tvid>
+		<epgid>cntv-hainan</epgid>
+		<name>海南卫视</name>
+		<status>1</status>
+		<note>海南卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>641</tvid>
+		<epgid>51zmt-民视</epgid>
+		<name>民视,民视新闻</name>
+		<status>1</status>
+		<note></note>
+	</epg>
+
+	<epg>
+		<tvid>641</tvid>
+		<epgid>51zmt-民视</epgid>
+		<name>民视,民视新闻</name>
+		<status>1</status>
+		<note></note>
+	</epg>
+
+	<epg>
+		<tvid>646</tvid>
+		<epgid>tvmao-HUNANTV-HUNANTV1</epgid>
+		<name>湖南卫视,湖南卫视高清</name>
+		<status>1</status>
+		<note>湖南卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>646</tvid>
+		<epgid>tvmao-HUNANTV-HUNANTV1</epgid>
+		<name>湖南卫视,湖南卫视高清</name>
+		<status>1</status>
+		<note>湖南卫视</note>
+	</epg>
+
+	<epg>
+		<tvid>644</tvid>
+		<epgid>tvmao-CCTV-CCTV2</epgid>
+		<name>CCTV-2财经,CCTV-2,CCTV2,cctv2</name>
+		<status>1</status>
+		<note>CCTV-2财经</note>
+	</epg>
+
+	<epg>
+		<tvid>651</tvid>
+		<epgid>51zmt-凤凰中文</epgid>
+		<name>凤凰中文,凤凰中文高清</name>
+		<status>1</status>
+		<note>凤凰中文</note>
+	</epg>
+
+	
+	
+	
+	
+	
+	
+
+
+</epgs>

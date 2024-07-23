@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>群晖直播官网-卫视|在线|电视直播|在线观看|湖南|风云直播|卫视直播|网络|中央电视台|电视直播网</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link href="./css/pclive.css" rel="stylesheet">
+    <script language="javascript" type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="./js/install.js"></script>
+    <script type="text/javascript">
+    if (/AppleWebKit.*mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+        if (window.location.href.indexOf("?mobile") < 0) {
+            try {
+                if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    window.location.href = "./mobile.html";
+                }
+            } catch (e) {}
+        }
+    }
+    </script>
+    <script src="./js/versionUpdate.js"></script>
+</head>
+<body>
+    <!-- 第一屏 -->
+    <div class="pc-ct-wrapperone">
+        <div class="pc-main-wrapperone">
+            <div class="wrapperonetop">
+                <div class="wraponetop-left">
+                    <div class="title">
+                        <img src="./images/logo.png" />
+                        <span>群晖直播</span>
+                    </div>
+                    <div class="introduceone">最任性、最好用的直播软件</div>
+                    <div class="introducetwo">群晖电视直播运行于智能电视机顶盒或者智能电视机，操作简单，集直播、回看、预约、一周节目表（EPG)于一身，继承传统的上下键换台，无需任何学习，下载即可上手。具有行业领先的频道收藏、隐藏、WIFI传源等功能。</div>
+                    <div class="donwload"></div>
+                </div>
+                <div class="wraponetop-right">
+                    <img src="./images/tv.png" />
+                </div>
+            </div>
+            <div class="wrapperonebottom">
+                <ul class="nav">
+                    <li class="navlione"><img src="./images/subscribe.png" /></li>
+                    <li><img src="./images/lapse.png"/></li>
+                    <li><img src="./images/pause.png"/></li>
+                    <li><img src="./images/catchup.png"/></li>
+                    <li><img src="./images/collect.png"/></li>
+                    <li class="navlisix"><img src="./images/carousel.png"/></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 第二屏 -->
+    <div class="pc-ct-wrappertwo">
+        <div class="pc-main-wrappertwo">
+            <div class="wrappertwotop">
+                <div class="wrappertwotop-left">
+                    <span class="tpltitle">任性选频道</span>
+                    <br>
+                    <span class="interval">11个频道分类，1400+频道数量</span>
+                    <br>
+                    <span class="interval">央视、卫视、体育、娱乐、少儿等</span>
+                    <br>
+                    <span>想看什么就看什么</span>
+                </div>
+                <div class="wrappertwotop-right">
+                    <img src="./images/channel.png"/>
+                </div>
+            </div>
+            <div class="wrappertwobottom">
+                <div class="wrappertwobottom-left">
+                    <img src="./images/timeshifting.png"/>
+                </div>
+                <div class="wrappertwobottom-right">
+                    <span class="tpltitle">任性直播时移</span>
+                    <br>
+                    <span class="interval">6小时时移，前进、倒退、暂停</span>
+                    <br>
+                    <span class="interval">不会错过任何精彩瞬间</span>
+                    <br>
+                    <span>轻松跳过广告时间</span>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 尾部 -->
+    <div class="pc-ct-wrapperfooter">
+        <div class="pc-main-wrapperfooter">
+            <div class="disclaimer">免责声明：所有内容均来源于公开的网络链接，群晖直播不承担任何内容所引起的争议和法律责任
+            </div>
+          <div class="copyright">&copy;&nbsp;&nbsp;2023&nbsp;&nbsp;群晖IPTV管理系统
+          </div>
+        </div>
+    </div>
+    <script>
+      $(function () {
+        $('.donwload').html('<div class="introducethree"> <span>更新时间：' + versionUpdate().getTime() + '</span> <span>版本号：' + versionUpdate().getNum() + '</span> </div> <div class="introducefour"> <span>大小：' + versionUpdate().getSize() + '</span> <span>系统：' + versionUpdate().getAndroid() + '</span></div><a id="downurl" href="' + versionUpdate().getLink() + '" download="群晖直播.apk">立即下载</a> <p><a id="managementurl" href="' + versionUpdate().getMLink() + '" management="IPTV管理系统">群晖IPTV管理系统</a><p>')
+      })
+    </script>
+</body>
+
+</html>
