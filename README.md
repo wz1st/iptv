@@ -7,8 +7,9 @@
 ## 安装
 ### docker版
 ```
+docker volume create iptv
 docker pull v1st233/iptv:latest
-docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> v1st233/iptv:latest
+docker run -d --name iptv_server -p <port>:80 -v iptv:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> v1st233/iptv:latest
 # username: admin
 # password: password
 ```
@@ -17,7 +18,8 @@ docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTO
 git clone https://github.com/wz1st/iptv.git
 cd iptv/docker
 docker build -f Dockerfile -t image_name:latest ..
-docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> image_name:latest
+docker volume create iptv
+docker run -d --name iptv_server -p <port>:80 -v iptv:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> image_name:latest
 ```
 ### 手动版
 #### 安装jdk 8
