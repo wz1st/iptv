@@ -9,10 +9,10 @@ function echoJSON($category, $alisname, $psw) {
     if ($alisname == '我的收藏') {
         $channelname = $alisname;
     } else {
-        $channelname = $db->mGet("iptv_channels", "name", "where category='$category'");
+        $channelname = $db->mGet("iptv_channels", "name", "where category=".$db->safeSQLParam($category));
     } 
     if (!empty($channelname)) {
-        $result = $db->mQuery("SELECT name,url FROM iptv_channels where category='$category' order by id");
+        $result = $db->mQuery("SELECT name,url FROM iptv_channels where category=".$db->safeSQLParam($category)." order by id");
         $nameArray = array();
         while ($row = mysqli_fetch_array($result)) {
             if (!in_array($row['name'], $nameArray)) {
@@ -64,7 +64,7 @@ if (isset($_POST['data'])) {
         $nettype = "";
     } 
     // 查找当前用户对应的套餐
-    $result = $db->mQuery("SELECT meal from iptv_users where deviceid='$androidid'");
+    $result = $db->mQuery("SELECT meal from iptv_users where deviceid=".$db->safeSQLParam($androidid));
     if (mysqli_num_rows($result)) {
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         if (empty($row["meal"])) {
@@ -99,7 +99,7 @@ if (isset($_POST['data'])) {
     if ($mid != 1000) {
         if (!empty($nettype)) {
             // 添加运营商频道数据,自动分配联通 电信 移动 对应的节目表
-            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and type='$nettype' order by id");
+            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and type=".$db->safeSQLParam($nettype)." order by id");
             while ($row = mysqli_fetch_array($result)) {
                 $pdname = $row['name'];
                 $psw = $row['psw'];
@@ -110,7 +110,7 @@ if (isset($_POST['data'])) {
         } 
         // 添加国内每个省内频道数据
         if (isset($region) && $region != '') {
-            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and type='province' and name like '$region%' order by id");
+            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and type='province' and name like ".$db->safeSQLParam($region.'%')." order by id");
             while ($row = mysqli_fetch_array($result)) {
                 $pdname = $row['name'];
                 $psw = $row['psw'];
@@ -124,7 +124,7 @@ if (isset($_POST['data'])) {
     if ($m_text) {
         $m_str = explode("_", $m_text);
         foreach ($m_str as $id => $meal_content) {
-            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and name='$meal_content' ORDER BY id asc");
+            $result = $db->mQuery("SELECT name,id,psw FROM iptv_category where enable=1 and (autocategory IS NULL OR autocategory!='on') and name=".$db->safeSQLParam($meal_content)." ORDER BY id asc");
             if (!mysqli_num_rows($result)) {
                 mysqli_free_result($result);
             } else {

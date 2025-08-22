@@ -1,5 +1,9 @@
 # iptv
->提取自矿神群晖iptv      
+>提取自矿神群晖iptv，修改系统存在的安全漏洞      
+## Change log
+#### 2025-8-22
+- 修复了SQL注入漏洞
+- 改为alpine+nginx+php-fpm 精简镜像大小
 ## 安装
 ### docker版
 ```
@@ -8,14 +12,21 @@ docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTO
 # username: admin
 # password: password
 ```
+或
+```
+git clone https://github.com/wz1st/iptv.git
+cd iptv/docker
+docker build -f Dockerfile -t image_name:latest ..
+docker run -d --name iptv_server -p <port>:80 -v /<path>:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> image_name:latest
+```
 ### 手动版
 #### 安装jdk 8
 ```略```
 #### 安装nginx or apache
 ```略```
-#### 安装PHP 8
+#### 安装PHP 8.0
 ```
-#安装启用扩展
+#安装php 8.0(必须)启用扩展
 ctype
 curl
 dom
@@ -68,14 +79,17 @@ $this->user = 'root'; //数据库帐号
 $this->pass = 'root'; //数据库密码
 ```         
 ```
-cp -rf apktool /use/local/apktool
-cp -rf client /use/local/client
-cp -rf buildapk.sh /use/local/buildapk.sh
+cp -rf apktool /build/apktool
+cp -rf client /build/client
+cp -rf buildapk.sh /use/local/bin/buildapk.sh
+chmod 777 /use/local/bin/buildapk.sh
 ```
 ## 使用
 ```
-#非docker版
-/use/local/buildapk.sh http <ip> <port>
+export PROTOCOL=http<or https>
+export IPTV_SER_ADDR=<your_host>
+export IPTV_SER_PORT=<port>
+/use/local/bin/buildapk.sh
 http://ip:port
 ```
 

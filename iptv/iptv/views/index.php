@@ -119,7 +119,7 @@
 								$result=$db->mQuery("SELECT name from iptv_category where (autocategory IS NULL OR autocategory!='on') order by id");
 								while ($row=mysqli_fetch_array($result)) {
 									$categoryname=$row['name'];
-									if ($channelnumdata = $db->mGetRow("iptv_channels","count(*)","where category='$categoryname'")) {
+									if ($channelnumdata = $db->mGetRow("iptv_channels","count(*)","where category=".$db->safeSQLParam($categoryname))) {
 									    $channelnum = $channelnumdata[0];
 									} else {
 									    $channelnum = 0;

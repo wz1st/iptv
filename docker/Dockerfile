@@ -1,0 +1,52 @@
+# 基础镜像
+FROM alpine:3.16
+
+ENV TZ=Asia/Shanghai
+ENV PHP_DATE_TIMEZONE=Asia/Shanghai
+
+# 使用国内镜像加速
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories
+
+# 安装基础工具、nginx、php8及必要扩展
+RUN apk add --no-cache \
+    tzdata supervisor nginx \
+    php8 php8-fpm php8-cli \
+    php8-curl php8-dom php8-fileinfo php8-gd php8-iconv \
+    php8-intl php8-mbstring php8-mysqli php8-openssl \
+    php8-pdo php8-pdo_mysql php8-pdo_sqlite php8-posix \
+    php8-simplexml php8-sockets php8-sodium php8-sqlite3 \
+    php8-xml php8-xmlreader php8-xmlwriter php8-opcache php8-session \
+    mariadb mariadb-client openjdk8-jre ; \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone; \
+    sed -i 's/;daemonize = yes/daemonize = no/' /etc/php8/php-fpm.conf; \
+    sed -i 's/^user = .*/user = nginx/' /etc/php8/php-fpm.d/www.conf; \
+    sed -i 's/^group = .*/group = nginx/' /etc/php8/php-fpm.d/www.conf; \
+    sed -i 's/#gzip on;/gzip on;/' /etc/nginx/nginx.conf; \
+    sed -i 's/^#\(bind-address.*\)/\1/' /etc/my.cnf.d/mariadb-server.cnf; \
+    sed -i 's/^\(skip-networking.*\)/#\1/' /etc/my.cnf.d/mariadb-server.cnf; \
+    mkdir -p /var/www/html; \
+    mkdir -p /build
+
+
+# 复制 nginx 默认站点配置
+COPY docker/default.conf /etc/nginx/http.d/default.conf
+
+# 复制 supervisord 主配置文件
+COPY docker/supervisord.conf /etc/supervisord.conf
+
+# 复制自定义的 docker-entrypoint 脚本
+COPY docker/docker-entrypoint.sh /usr/local/bin/
+# 赋予执行权限
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+COPY iptv /var/www/iptv
+COPY database/iptv.sql /var/www/iptv.sql
+
+COPY apktool /build/apktool
+COPY client /build/client
+
+# 暴露端口
+EXPOSE 80
+
+# 启动 supervisord 管理 nginx + php-fpm
+ENTRYPOINT ["docker-entrypoint.sh"]

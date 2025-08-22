@@ -69,7 +69,7 @@ if (isset($_POST['bindchannel'])) {
         if (empty($content)) {
             exit("<script>$.alert({title: '错误',content: '对不起，没有索引到频道列表！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location=document.referrer;}}}});</script>");
         } 
-        $db->mSet("iptv_epg", "content='$content'", "where id=" . $_POST['id']);
+        $db->mSet("iptv_epg", "content=".$db->safeSQLParam($content), "where id=" . $_POST['id']);
         exit("<script>$.alert({title: '成功',content: 'EPG信息已匹配！',type: 'green',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location=document.referrer;}}}});</script>");
     } 
 
@@ -93,7 +93,7 @@ if (isset($_POST['bindchannel'])) {
             } 
         }
         $content = implode(",", array_unique($list));
-        $db->mSet("iptv_epg", "content='$content'", "where id=" . $row['id']);
+        $db->mSet("iptv_epg", "content=".$db->safeSQLParam($content), "where id=" . $row['id']);
         unset($list, $result_remarks);
     } 
     unset($row);
@@ -124,7 +124,7 @@ if ($_GET["act"] == "add") {
     $name = !empty($_POST["name"])?$_POST["name"]:exit("<script>$.alert({title: '错误',content: '请填写EPG名称！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location=document.referrer;}}}});</script>");
     $remarks = $_POST["remarks"];
     $epg_name = $epg . '-' . $name;
-    $result = $db->mQuery("select * from iptv_epg where name=" . "'" . $epg_name . "'"); 
+    $result = $db->mQuery("select * from iptv_epg where name=" . $db->safeSQLParam($epg_name)); 
     // EPG是否已经同名或存在
     if (mysqli_num_rows($result)) {
         mysqli_free_result($result);
@@ -177,7 +177,7 @@ if (isset($_GET['keywords'])) {
 // 设置每页显示数量
 if (isset($_POST['recCounts'])) {
     $recCounts = $_POST['recCounts'];
-    $db->mSet("iptv_admin", "showcounts=$recCounts", "where name='$user'");
+    $db->mSet("iptv_admin", "showcounts=$recCounts", "where name=".$db->safeSQLParam($user));
 } 
 // 获取当前页
 if (isset($_GET['page'])) {
@@ -186,7 +186,7 @@ if (isset($_GET['page'])) {
     $page = 1;
 } 
 // 获取每页显示数量
-if ($row = $db->mGetRow("iptv_admin", "showcounts", "where name='$user'")) {
+if ($row = $db->mGetRow("iptv_admin", "showcounts", "where name=".$db->safeSQLParam($user))) {
     $recCounts = $row['showcounts'];
 } else {
     $recCounts = 100;

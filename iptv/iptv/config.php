@@ -46,6 +46,22 @@ class Config {
         } 
         return self::$conn;
     } 
+    /**
+     * 安全处理 SQL 参数
+     * @param mysqli $link 数据库连接
+     * @param mixed $param 待处理的参数（字符串或数字）
+     * @return string 安全的 SQL 字符串
+     */
+    public function safeSQLParam($param) {
+        // 如果是数字，直接返回数字（避免不必要的引号）
+        if (is_int($param) || is_float($param)) {
+            return $param;
+        }
+
+        // 如果是字符串，使用 mysqli_real_escape_string 并加单引号
+        return "'" . mysqli_real_escape_string($this->link, $param) . "'";
+    }
+
     // 执行SQL语句
     public function mQuery($func) {
         if ($result = mysqli_query($this->link, $func)) {

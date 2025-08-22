@@ -17,7 +17,7 @@ error_reporting(E_ERROR);
 if(isset($_POST['movie_name'])){
 	$name=$_POST['movie_name'];
 	$api=$_POST['movie_api'];
-	$sql="INSERT into dsmtv_movie (name,api,state) values('$name','$api',1)";
+	$sql="INSERT into dsmtv_movie (name,api,state) values(".$db->safeSQLParam($name).",".$db->safeSQLParam($api).",1)";
 	$db->mQuery($sql);
 	//mysqli_query($con,$sql);
 }
@@ -26,20 +26,20 @@ if(isset($_POST['movie_edit_id'])){
 	$id=$_POST['movie_edit_id'];
 	$movie_edit_api=$_POST['movie_edit_api'];
 	$movie_edit_name=$_POST['movie_edit_name'];
-	$sql="UPDATE dsmtv_movie SET name = '$movie_edit_name' ,api = '$movie_edit_api' where id =".$id;
+	$sql="UPDATE dsmtv_movie SET name = '$movie_edit_name' ,api = ".$db->safeSQLParam($movie_edit_api)." where id =".$db->safeSQLParam($id);
 	$db->mQuery($sql);
 }
 
 if(isset($_GET['delete'])){
 	$id=$_GET['id'];
-	$sql="delete from dsmtv_movie where id =".$id;
+	$sql="delete from dsmtv_movie where id =".$db->safeSQLParam($id);
 	$db->mQuery($sql);
 }
 
 if(isset($_GET['toggle'])){
 	$id=$_GET['id'];
 	$state=$_GET['toggle'];
-	$sql="update dsmtv_movie set state = ".$state." where id =".$id;
+	$sql="update dsmtv_movie set state = ".$db->safeSQLParam($state)." where id =".$db->safeSQLParam($id);
 	$db->mQuery($sql);
 }
 

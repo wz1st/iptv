@@ -20,7 +20,7 @@ if ($_GET["act"]=="edits") {
 if ($_GET["act"]=="edit") { 
 	$id=!empty($_GET["id"])?$_GET["id"]:exit("<script>$.alert({title: '错误',content: '参数为空！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location='mealsadmin.php';}}}});</script>");
 	//检查套餐是否存在
-	$result=$db->mQuery("SELECT name,content,amount,days FROM iptv_meals WHERE id=".$id);
+	$result=$db->mQuery("SELECT name,content,amount,days FROM iptv_meals WHERE id=".$db->safeSQLParam($id));
 	if (!mysqli_num_rows($result)) {
 		mysqli_free_result($result);
 		exit("<script>$.alert({title: '错误',content: '套餐不存在！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location='mealsadmin.php';</script>");

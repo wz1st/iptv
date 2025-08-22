@@ -13,7 +13,7 @@ if ($_GET["act"] == "edits") {
 if ($_GET["act"]=="edit") { 
     $id=!empty($_GET["id"])?$_GET["id"]:exit("<script>$.alert({title: '错误',content: '参数为空！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location='epgadmin.php';}}}});</script>");
     //检查EPG是否存在
-    $result=$db->mQuery("select name,content,remarks from iptv_epg where id=".$id);
+    $result=$db->mQuery("select name,content,remarks from iptv_epg where id=".$db->safeSQLParam($id));
     if (!mysqli_num_rows($result)) {
         mysqli_free_result($result);
         exit("<script>$.alert({title: '错误',content: 'EPG不存在！',type: 'red',buttons: {confirm: {text: '确定',btnClass: 'btn-primary',action: function(){self.location=document.referrer;}}}});</script>");

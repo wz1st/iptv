@@ -3,10 +3,10 @@ var versionUpdate = function () {
   var getHost = window.location.host;
   var data = {
     versionNum: 'V6.3.3.7',
-    versionTime: '2021.03.19',
+    versionTime: '2025.08.22',
     versionLink: getProtocol + "//" + getHost + "/app/DSMTV.apk",
     managementLink: getProtocol + "//" + getHost + "/iptv/",
-    versionSize: '0.00MB',
+    versionSize: '17.54MB',
     versionAndroid: 'Android 4.0+',
   }
   return {

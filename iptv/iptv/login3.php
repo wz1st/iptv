@@ -9,15 +9,15 @@ $db = Config::GetIntance();
 
 if (isset($_GET['id'])) {
     $androidid = $_GET['id'];
-    $mealid = $db->mGet("iptv_users", "meal", "where deviceid='$androidid'");
-    $mealname = $db->mGet("iptv_meals", "name", "where id='$mealid'");
+    $mealid = $db->mGet("iptv_users", "meal", "where deviceid=".$db->safeSQLParam($androidid));
+    $mealname = $db->mGet("iptv_meals", "name", "where id=".$db->safeSQLParam($mealid));
     echo $mealname;
 } 
 
 if (isset($_POST['login'])) {
     $GetIP = new GetIP();
     $ip = $GetIP->getuserip();
-    $num = $db->mGet("iptv_users", "count(*)", "where ip='$ip'");
+    $num = $db->mGet("iptv_users", "count(*)", "where ip=".$db->safeSQLParam($ip));
     if ($num >= $db->mGet("iptv_config", "value", "where name='max_sameip_user'")) {
         header('HTTP/1.1 403 Forbidden');
         exit();
@@ -70,7 +70,7 @@ if (isset($_POST['login'])) {
             $mac=$androidid;
 	    }
         // mac是否匹配
-        if ($row = $db->mCheckRow("iptv_users", "name,status,exp,deviceid,mac,model,meal", "where mac='$mac' limit 1")) {
+        if ($row = $db->mCheckRow("iptv_users", "name,status,exp,deviceid,mac,model,meal", "where mac=".$db->safeSQLParam($mac)." limit 1")) {
             // 匹配成功
             $days = ceil(($row['exp'] - time()) / 86400);
             $status = intval($row['status']);
@@ -85,10 +85,10 @@ if (isset($_POST['login'])) {
                 $status = 1;
             } 
             if ($deviceid != $androidid){
-            	$db->mSet("iptv_users", "deviceid='$androidid',idchange=idchange+1", "where mac='$mac' limit 1"); 
+            	$db->mSet("iptv_users", "deviceid=".$db->safeSQLParam($androidid).",idchange=idchange+1", "where mac=".$db->safeSQLParam($mac)." limit 1"); 
             }
             // 更新位置，登陆时间
-            $db->mSet("iptv_users", "region='$region',ip='$ip',lasttime=$nowtime", "where mac='$mac' limit 1"); 
+            $db->mSet("iptv_users", "region=".$db->safeSQLParam($region).",ip=".$db->safeSQLParam($ip).",lasttime=$nowtime", "where mac=".$db->safeSQLParam($mac)." limit 1"); 
         } else {
             // 用户验证失败，识别用户信息存入后台
             $name = genName();
@@ -110,7 +110,7 @@ if (isset($_POST['login'])) {
             $mealid = 1000;
             $status2 = $status;
             $exp = strtotime(date("Y-m-d"), time()) + 86400 * $days;
-            $db->mInt("iptv_users", "name,mac,deviceid,model,exp,ip,status,region,lasttime,marks", "$name,'$mac','$androidid','$model',$exp,'$ip',$status,'$region',$nowtime,'$marks'");
+            $db->mInt("iptv_users", "name,mac,deviceid,model,exp,ip,status,region,lasttime,marks", "$name,".$db->safeSQLParam($mac).",".$db->safeSQLParam($androidid).",".$db->safeSQLParam($model).",$exp,".$db->safeSQLParam($ip).",$status,".$db->safeSQLParam($region).",$nowtime,".$db->safeSQLParam($marks));
             if ($days > 0 && $status == -1) {
                 $status = 1;
             } else if ($status2 == -999) {
@@ -149,7 +149,7 @@ if (isset($_POST['login'])) {
             $status = 999;
         } 
 
-        $mealname = $db->mGet("iptv_meals", "name", "where id='$mealid'");
+        $mealname = $db->mGet("iptv_meals", "name", "where id=".$db->safeSQLParam($mealid));
         $adtext = '尊敬的用户，欢迎使用' . $app_appname . '，当前套餐：' . $mealname . '。' . $adtext;
 
         if ($showwea == 1) {
