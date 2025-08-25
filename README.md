@@ -1,6 +1,8 @@
 # iptv
 >提取自矿神群晖iptv，修改系统存在的安全漏洞      
 ## Change log
+#### 2025-8-25
+- 添加自动构建，添加armv7、arm64、386、amd64版本
 #### 2025-8-22
 - 修复了SQL注入漏洞
 - 改为alpine+nginx+php-fpm 精简镜像大小
