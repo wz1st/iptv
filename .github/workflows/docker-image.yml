@@ -37,4 +37,3 @@ jobs:
           tags: |
             v1st233/iptv:latest
             v1st233/iptv:${{ env.short_sha }}
-            ${{ github.ref_type == 'tag' && format('v1st233/iptv:{0}', github.ref_name) || '' }}
