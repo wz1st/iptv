@@ -25,6 +25,10 @@ jobs:
       # 3. 设置 Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      
+      - name: Get short SHA
+        id: vars
+        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       # 4. 构建并推送镜像
       - name: Build and Push
