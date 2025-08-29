@@ -18,8 +18,8 @@ docker run -d --name iptv_server -p <port>:80 -v iptv:/var/lib/mysql -e PROTOCOL
 或
 ```
 git clone https://github.com/wz1st/iptv.git
-cd iptv/docker
-docker build -f Dockerfile -t image_name:latest ..
+cd iptv
+docker build -f Dockerfile -t image_name:latest .
 docker volume create iptv
 docker run -d --name iptv_server -p <port>:80 -v iptv:/var/lib/mysql -e PROTOCOL=http<or https> -e IPTV_SER_ADDR=<your_host> -e IPTV_SER_PORT=<port> image_name:latest
 ```
