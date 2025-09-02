@@ -25,6 +25,11 @@ jobs:
           registry: ${{ vars.DOCKER_REGISTRY }}
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      # 注册 QEMU 支持多架构
+      - name: Set up QEMU
+        run: |
+          docker run --rm --privileged tonistiigi/binfmt --install all
 
       # 3. 设置 Buildx
       - name: Set up Docker Buildx
