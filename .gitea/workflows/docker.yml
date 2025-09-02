@@ -1,0 +1,45 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ "main" ]       # push 到 main 分支触发 mini 镜像构建
+  workflow_dispatch:           # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Modify hosts file
+        run: |
+          echo "${{ vars.DOCKER_HOST }} ${{ vars.DOCKER_REGISTRY }}" | sudo tee -a /etc/hosts
+
+      # 1. 拉取仓库代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 登录 Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.DOCKER_REGISTRY }}
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 3. 设置 Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 4. 构建并推送镜像
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile-cn
+          push: true
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          driver-opts: |
+            network=host
+          
+          tags: |
+            ${{ vars.DOCKER_REGISTRY || 'docker.io' }}/${{ vars.DOCKER_USERNAME }}/iptv:latest
