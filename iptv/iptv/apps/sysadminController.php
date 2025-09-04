@@ -218,13 +218,12 @@ if (isset($_POST['submit']) && isset($_POST['adtext'])) {
 } 
 
 if (isset($_POST['submitappinfo'])) {
-    $app_sign = $_POST['app_sign'];
     $app_appname = $_POST['app_appname'];
     $app_packagename = $_POST['app_packagename'];
-    $db->mSet("iptv_config", "value='$app_sign'", "where name='app_sign'");
     $db->mSet("iptv_config", "value='$app_appname'", "where name='app_appname'");
     $db->mSet("iptv_config", "value='$app_packagename'", "where name='app_packagename'");
-    echo"<script>showindex=4;lightyear.notify('保存成功！', 'success', 3000);</script>";
+    exec("nohup rebuild.sh > /var/www/html/rebuild.log 2>&1 &");
+    echo"<script>showindex=4;lightyear.notify('保存成功！APK编译中，请稍后刷新查看！', 'success', 3000);</script>";
 } 
 
 if (isset($_POST['alipay_set'])) {

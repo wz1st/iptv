@@ -38,72 +38,66 @@
 
 # direct methods
 .method static constructor <clinit>()V
-    .locals 2
+    .locals 4
 
+    # --- 初始化 b 字段 ---
     new-instance v0, Ljava/lang/StringBuilder;
-
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v1, "data"
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     sget-object v1, Lcom/eztv/powerful/SplashActivity;->A:Ljava/lang/String;
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
     move-result-object v0
 
     sput-object v0, Lcom/eztv/powerful/b/b;->b:Ljava/lang/String;
 
-    new-instance v0, Ljava/lang/StringBuilder;
+    # --- 打桩输出 b ---
+    const-string v1, "TAG"
+    sget-object v2, Lcom/eztv/powerful/b/b;->b:Ljava/lang/String;
+    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
+    # --- 初始化 c 字段 ---
+    new-instance v0, Ljava/lang/StringBuilder;
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
-
     move-result-object v1
-
     invoke-virtual {v1}, Ljava/io/File;->getPath()Ljava/lang/String;
-
     move-result-object v1
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     const-string v1, "/"
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     sget-object v1, Lcom/eztv/powerful/SplashActivity;->E:Ljava/lang/String;
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     const-string v1, "/channels/"
-
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
     move-result-object v0
 
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
     move-result-object v0
 
     sput-object v0, Lcom/eztv/powerful/b/b;->c:Ljava/lang/String;
 
+    # --- 打桩输出 c ---
+    const-string v1, "TAG"
+    sget-object v2, Lcom/eztv/powerful/b/b;->c:Ljava/lang/String;
+    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
     return-void
 .end method
+
 
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 5

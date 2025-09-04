@@ -115,7 +115,7 @@
 .end method
 
 .method public static a(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    .locals 4
+    .locals 10
 
     const/4 v0, 0x0
 
@@ -165,6 +165,14 @@
 
     :cond_1
     :try_start_1
+
+    const-string v9, "DEBUG_AES"
+
+    # 打印密文 p0
+    invoke-static {v9, p0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    # 打印密钥 p1
+    invoke-static {v9, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
     const-string v1, "utf-8"
 
     invoke-virtual {p1, v1}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B

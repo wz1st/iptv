@@ -153,7 +153,7 @@
 
     sput v0, Lcom/eztv/powerful/SplashActivity;->e:I
 
-    const-string v0, "http://192.168.0.250:20230/iptv"
+    const-string v0, "http://10.10.220.161/iptv"
 
     sput-object v0, Lcom/eztv/powerful/SplashActivity;->n:Ljava/lang/String;
 

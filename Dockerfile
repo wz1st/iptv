@@ -17,14 +17,16 @@ RUN apk add --no-cache \
     php8-pdo php8-pdo_mysql php8-pdo_sqlite php8-posix \
     php8-simplexml php8-sockets php8-sodium php8-sqlite3 \
     php8-xml php8-xmlreader php8-xmlwriter php8-opcache php8-session \
-    mariadb mariadb-client openjdk8-jre ; \
+    mariadb mariadb-client openjdk8 bash; \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone; \
     sed -i 's/;daemonize = yes/daemonize = no/' /etc/php8/php-fpm.conf; \
     sed -i 's/^user = .*/user = nginx/' /etc/php8/php-fpm.d/www.conf; \
     sed -i 's/^group = .*/group = nginx/' /etc/php8/php-fpm.d/www.conf; \
+    sed -i 's/;clear_env = no/clear_env = no/' /etc/php8/php-fpm.d/www.conf; \
     sed -i 's/#gzip on;/gzip on;/' /etc/nginx/nginx.conf; \
     sed -i 's/^#\(bind-address.*\)/\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's/^\(skip-networking.*\)/#\1/' /etc/my.cnf.d/mariadb-server.cnf; \
+    sed -i 's#/bin/ash#/bin/bash#g' /etc/passwd ; \
     mkdir -p /var/www/html; \
     mkdir -p /build
 
@@ -35,16 +37,23 @@ COPY docker/default.conf /etc/nginx/http.d/default.conf
 # 复制 supervisord 主配置文件
 COPY docker/supervisord.conf /etc/supervisord.conf
 
-# 复制自定义的 docker-entrypoint 脚本
-COPY docker/docker-entrypoint.sh /usr/local/bin/
-# 赋予执行权限
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
+# 复制WEB文件
 COPY iptv /var/www/iptv
 COPY database/iptv.sql /var/www/iptv.sql
 
-COPY apktool /build/apktool
-COPY client /build/client
+COPY apktool/* /usr/bin/
+COPY rename.sh /usr/bin/rename.sh
+COPY buildapk.sh /usr/bin/buildapk.sh
+COPY rebuild.sh /usr/bin/rebuild.sh
+COPY client /client
+COPY docker/docker-entrypoint.sh /usr/local/bin/
+
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/bin/apktool* && \
+    chmod +x /usr/bin/rename.sh && \
+    chmod +x /usr/bin/buildapk.sh && \
+    chmod +x /usr/bin/rebuild.sh
 
 # 暴露端口
 EXPOSE 80

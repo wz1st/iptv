@@ -15101,7 +15101,7 @@
 .method private v()V
     .locals 2
 
-    const-string v0, "http://192.168.0.250:20230/iptv/epg/live_proxy_weather.php?"
+    const-string v0, "http://10.10.220.161/iptv/epg/live_proxy_weather.php?"
 
     :try_start_0
     invoke-static {v0}, Lcom/eztv/powerful/util/i;->c(Ljava/lang/String;)Z
@@ -18210,11 +18210,11 @@
 .method d()V
     .locals 2
 
-    const-string v0, "http://192.168.0.250:20230/iptv/epg/live_proxy_epg.php"
+    const-string v0, "http://10.10.220.161/iptv/epg/live_proxy_epg.php"
 
     sput-object v0, Lcom/eztv/powerful/PlayerActivity;->Z:Ljava/lang/String;
 
-    const-string v0, "http://192.168.0.250:20230/iptv/epg/live_proxy_epg.php"
+    const-string v0, "http://10.10.220.161/iptv/epg/live_proxy_epg.php"
 
     sput-object v0, Lcom/eztv/powerful/PlayerActivity;->aa:Ljava/lang/String;
 

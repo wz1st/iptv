@@ -7,11 +7,20 @@ doNotCompress:
 - res/drawable-hdpi-v4/ic_search.webp
 - ogg
 isFrameworkApk: false
-packageInfo: null
-sdkInfo: null
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: cn.dsmtv.player
+sdkInfo:
+  minSdkVersion: '17'
+  targetSdkVersion: '23'
 sharedLibrary: false
 sparseResources: false
 unknownFiles: {}
-usesFramework: null
+usesFramework:
+  ids:
+  - 1
+  tag: null
 version: 2.5.0
-versionInfo: null
+versionInfo:
+  versionCode: '1'
+  versionName: 6.3.3.7
