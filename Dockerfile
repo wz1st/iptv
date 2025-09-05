@@ -6,7 +6,7 @@ ENV TZ=Asia/Shanghai
 ENV PHP_DATE_TIMEZONE=Asia/Shanghai
 
 # 使用国内镜像加速
-RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories
+#RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories
 
 # 安装基础工具、nginx、php8及必要扩展
 RUN apk add --no-cache \
@@ -43,7 +43,6 @@ COPY database/iptv.sql /var/www/iptv.sql
 
 COPY apktool/* /usr/bin/
 COPY rename.sh /usr/bin/rename.sh
-COPY buildapk.sh /usr/bin/buildapk.sh
 COPY rebuild.sh /usr/bin/rebuild.sh
 COPY crontab_downlist.sh /usr/bin/crontab_downlist.sh
 COPY client /client
@@ -53,7 +52,6 @@ COPY docker/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod +x /usr/bin/docker-entrypoint.sh && \
     chmod +x /usr/bin/apktool* && \
     chmod +x /usr/bin/rename.sh && \
-    chmod +x /usr/bin/buildapk.sh && \
     chmod +x /usr/bin/rebuild.sh && \
     chmod +x /usr/bin/crontab_downlist.sh
 

@@ -35,6 +35,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # 设置日期变量
+      - name: Set image version
+        id: vars
+        run: echo "IMAGE_VERSION=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
       # 4. 构建并推送镜像
       - name: Build and Push
         uses: docker/build-push-action@v6
@@ -48,3 +53,4 @@ jobs:
           
           tags: |
             ${{ vars.DOCKER_REGISTRY || 'docker.io' }}/${{ vars.DOCKER_USERNAME }}/iptv:latest
+            ${{ vars.DOCKER_REGISTRY || 'docker.io' }}/${{ vars.DOCKER_USERNAME }}/iptv:${{ env.IMAGE_VERSION }}

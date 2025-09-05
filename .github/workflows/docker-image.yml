@@ -3,7 +3,6 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [ "main" ]       # push 到 main 分支触发 latest 镜像
-    tags: [ "v*" ]             # push Git tag（如 v1.0.0）时触发版本镜像
   workflow_dispatch:           # 允许手动触发
 
 jobs:
@@ -25,10 +24,11 @@ jobs:
       # 3. 设置 Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
-      - name: Get short SHA
+
+      # 设置日期变量
+      - name: Set image version
         id: vars
-        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_ENV
+        run: echo "IMAGE_VERSION=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       # 4. 构建并推送镜像
       - name: Build and Push
@@ -40,4 +40,4 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/386
           tags: |
             v1st233/iptv:latest
-            v1st233/iptv:${{ env.short_sha }}
+            v1st233/iptv:${{ env.IMAGE_VERSION }}
