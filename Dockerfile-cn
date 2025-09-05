@@ -42,18 +42,17 @@ COPY database/iptv.sql /var/www/iptv.sql
 
 COPY apktool/* /usr/bin/
 COPY rename.sh /usr/bin/rename.sh
-COPY buildapk.sh /usr/bin/buildapk.sh
 COPY rebuild.sh /usr/bin/rebuild.sh
 COPY crontab_downlist.sh /usr/bin/crontab_downlist.sh
 COPY client /client
-COPY docker/docker-entrypoint.sh /usr/local/bin/
+COPY docker/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
+RUN chmod +x /usr/bin/docker-entrypoint.sh && \
     chmod +x /usr/bin/apktool* && \
     chmod +x /usr/bin/rename.sh && \
-    chmod +x /usr/bin/buildapk.sh && \
-    chmod +x /usr/bin/rebuild.sh
+    chmod +x /usr/bin/rebuild.sh && \
+    chmod +x /usr/bin/crontab_downlist.sh
 
 # 暴露端口
 EXPOSE 80
