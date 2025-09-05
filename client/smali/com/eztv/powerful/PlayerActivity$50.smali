@@ -48,7 +48,7 @@
 
     const-string v1, "android.intent.extra.TEXT"
 
-    const-string v2, "\u6211\u5728\u4f7f\u7528\u7fa4\u6656IPTV\u7ba1\u7406\u7cfb\u7edf\u5957\u4ef6,\u611f\u89c9\u975e\u5e38\u597d\u7528,\u8fd9\u662f\u7fa4\u6656\u5957\u4ef6\u793e\u7fa4\u5730\u5740,\u9700\u8981\u7684\u53ef\u4ee5\u5c06\u5b83\u6dfb\u52a0\u5230\u7fa4\u6656 http://spk.bobohome.store:8880"
+    const-string v2, "\u6211\u5728\u4f7f\u7528\u6e05\u548ciptv\u7ba1\u7406\u7cfb\u7edf,\u611f\u89c9\u975e\u5e38\u597d\u7528 https://github.com/wz1st/iptv"
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 

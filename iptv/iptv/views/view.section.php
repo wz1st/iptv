@@ -5,11 +5,11 @@ require_once "../config.php";require_once "../apps/usercheck.php"; ?>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=0.92, maximum-scale=1, user-scalable=no" />
-<meta name="keywords" content="群晖IPTV管理系统" />
-<meta name="description" content="群晖IPTV管理系统" />
+<meta name="keywords" content="清和IPTV管理系统" />
+<meta name="description" content="清和IPTV管理系统" />
 <meta name="author" content="iptv" />
 <meta name="renderer" content="webkit" />
-<title>群晖IPTV管理系统</title>
+<title>清和IPTV管理系统</title>
 <link rel="icon" href="images/favicon.ico" type="image/ico">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/materialdesignicons.min.css" rel="stylesheet">
@@ -119,7 +119,7 @@ require_once "../config.php";require_once "../apps/usercheck.php"; ?>
 				
 				<div class="sidebar-footer">
 					<p align="center"><?php echo date("Y-m-d H:i",time()); ?></p>
-					<p class="copyright">&nbsp;&nbsp;&nbsp;&copy; 2023 群晖IPTV管理系统</p>
+					<p class="copyright">&nbsp;&nbsp;&nbsp;&copy; <?php echo date("Y"); ?> 清和IPTV管理系统</p>
 				</div>
 			</div>
 		</aside>

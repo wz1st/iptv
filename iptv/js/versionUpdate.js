@@ -2,7 +2,7 @@ var versionUpdate = function () {
   var getProtocol = window.location.protocol;
   var getHost = window.location.host;
   var data = {
-    versionNum: 'V6.3.3.7',
+    versionNum: 'V0.25.5.4',
     versionTime: '2025.08.22',
     versionLink: getProtocol + "//" + getHost + "/app/DSMTV.apk",
     managementLink: getProtocol + "//" + getHost + "/iptv/",

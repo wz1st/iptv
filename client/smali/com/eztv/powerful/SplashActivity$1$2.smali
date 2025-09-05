@@ -71,6 +71,11 @@
 
     move-result-object v1
 
+    if-nez v1, :context_not_null
+    goto :goto_0   # Context 为 null，直接返回，不调用工具类
+
+:context_not_null
+
     invoke-static {v0, v1}, Lcom/eztv/powerful/util/b;->a(Ljava/lang/String;Landroid/content/Context;)V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0

@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>IPTV管理系统</title>
+<title>清和IPTV管理系统</title>
 <link rel="icon" href="views/images/favicon.ico" type="image/ico">
-<meta name="keywords" content="群晖IPTV管理系统" />
-<meta name="description" content="群晖IPTV管理系统" />
+<meta name="keywords" content="清和IPTV管理系统" />
+<meta name="description" content="清和IPTV管理系统" />
 <meta name="author" content="iptv" />
 <meta name="renderer" content="webkit" />
 <link href="views/css/bootstrap.min.css" rel="stylesheet">

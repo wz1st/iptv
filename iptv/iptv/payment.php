@@ -116,7 +116,7 @@
 				</form>
 				<hr>
 				<footer class="col-sm-12 text-center">
-					<p class="m-b-0">Copyright © 2020 <a href="http://www.spk.bobohome.store:8880">spk.bobohome.store:8880</a>. All right reserved</p>
+					<p class="m-b-0">Copyright © <?php echo date("Y"); ?> <a href="https://github.com/wz1st/iptv">清和</a>. All right reserved</p>
 				</footer>
 			</div>
 		</div>

@@ -1,10 +1,10 @@
 <meta charset="UTF-8"> <!-- for HTML5 -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>群晖影视</title>
+<title>清和影视</title>
 <link rel="icon" href="favicon.ico" type="image/ico">
  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<meta name="keywords" content="群晖影视">
-<meta name="description" content="群晖影视">
+<meta name="keywords" content="清和影视">
+<meta name="description" content="清和影视">
 <meta name="author" content="yinqi">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/materialdesignicons.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 <!-- 固定列所需的js和css(bootstrap-table-fixed-columns) -->
 <link rel="stylesheet" type="text/css" href="./css/bootstrap-table-fixed-columns.css">
 <script src="./js/bootstrap-table-fixed-columns.js"></script>
-<title>群晖影视</title>
+<title>清和影视</title>
 <?php
 include_once "conn.php";
 include_once "val.php";
@@ -272,7 +272,7 @@ a#topnav_current { color: #fff }
         </nav>
         
         <div class="sidebar-footer">
-          <p class="copyright">https://spk.bobohome.store:8880</br> 群晖影视</br>https://spk.bobohome.store:8880</p>
+          
         </div>
       </div>
       

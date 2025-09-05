@@ -13,6 +13,10 @@ $url= dirname($url).'/';
 foreach ($files as $file) {
 	$pngs[]=$url.$file;
 }
+if (count($pngs) == 0) {
+    echo '';
+    exit;
+}
 
 unset($files);
 $rkey=array_rand($pngs);

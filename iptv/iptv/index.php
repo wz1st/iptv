@@ -7,7 +7,7 @@
 			</div>
 			<div class="login-center form__content">
 				<div class="login-header text-center">
-					<a href="index.php"> <img alt="light year admin" src="views/images/logo-sidebar.png"> </a>
+					<a href="index.php"> <h1> 清和IPTV管理系统 </h1> </a>
 				</div>
 				<form id="SecretkeyForm" method="post">
 					<div class="form-group has-feedback feedback-left">
@@ -45,7 +45,7 @@
 				</form>
 				<hr>
 				<footer class="col-sm-12 text-center">
-					<p class="m-b-0">&copy; 2023 群晖IPTV管理系统</p>
+					<p class="m-b-0">&copy; <?php echo date("Y"); ?> 清和IPTV管理系统</p>
 				</footer>
 			</div>
 		</div>

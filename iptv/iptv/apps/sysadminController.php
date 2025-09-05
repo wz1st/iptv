@@ -241,31 +241,132 @@ if (isset($_POST['alipay_set'])) {
     echo"<script>showindex=0;lightyear.notify('提交修改成功！', 'success', 3000);</script>";
 } 
 
-// 上传APP背景图片
+// 上传 APP 背景图片
 if (isset($_POST['submitsplash'])) {
-    if ($_FILES["splash"]["type"] == "image/png") {
-        if ($_FILES["splash"]["error"] > 0) {
-            echo "Error: " . $_FILES["splash"]["error"];
-        } else {
-            $savefile = "../images/" . $_FILES["splash"]["name"];
-            move_uploaded_file($_FILES["splash"]["tmp_name"], $savefile);
-            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' || 
-                        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ||
-                        isset($_SERVER['HTTP_FRONT_END_HTTPS']) && $_SERVER['HTTP_FRONT_END_HTTPS'] === 'on' ? 'https://' : 'http://';
-            $url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"];
-            $splashurl = dirname($url) . '/' . $savefile;
-            echo "<script>showindex=1;lightyear.notify('上传成功！', 'success', 3000);</script>";
-        } 
+    if (!isset($_FILES['splash']) || $_FILES['splash']['error'] !== UPLOAD_ERR_OK) {
+        echo "<script>showindex=1;lightyear.notify('上传失败，请重试！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 限制大小（800KB）
+    if ($_FILES["splash"]["size"] > 800 * 1024) {
+        echo "<script>showindex=1;lightyear.notify('图片超过800KB！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 验证文件类型（使用 getimagesize 更可靠）
+    $info = getimagesize($_FILES["splash"]["tmp_name"]);
+    if ($info === false || $info['mime'] !== 'image/png') {
+        echo "<script>showindex=1;lightyear.notify('仅支持PNG格式！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 生成唯一文件名（避免覆盖）
+    $ext = "png";
+    $saveDir = "../images/";
+    if (!is_dir($saveDir)) {
+        mkdir($saveDir, 0755, true);
+    }
+    $saveName = uniqid("splash_", true) . "." . $ext;
+    $savePath = $saveDir . $saveName;
+
+    if (move_uploaded_file($_FILES["splash"]["tmp_name"], $savePath)) {
+        // 构造 URL
+        $protocol = (
+            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+            (isset($_SERVER['HTTP_FRONT_END_HTTPS']) && $_SERVER['HTTP_FRONT_END_HTTPS'] === 'on')
+        ) ? 'https://' : 'http://';
+
+        $url = $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER["SCRIPT_NAME"]);
+        $splashurl = $url . "/images/" . $saveName;
+
+        echo "<script>showindex=1;lightyear.notify('上传成功！', 'success', 3000);</script>";
     } else {
-        echo "<script>showindex=1;lightyear.notify('图片仅支持PNG格式，大小不能超过800KB！', 'danger', 3000);</script>";
-    } 
-} 
+        echo "<script>showindex=1;lightyear.notify('上传失败，无法保存文件！', 'danger', 3000);</script>";
+    }
+}
+
 // 删除背景图片
 if (isset($_POST['submitdelbg'])) {
-    $file = $_POST['file'];
-    unlink('../images/' . $file);
-    echo"<script>showindex=1;lightyear.notify('删除成功！', 'success', 3000);</script>";
-} 
+    if (!isset($_POST['file'])) {
+        echo "<script>showindex=1;lightyear.notify('未指定文件！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 防止目录穿越攻击
+    $file = basename($_POST['file']);
+    $path = "../images/" . $file;
+
+    if (file_exists($path) && is_file($path)) {
+        unlink($path);
+        echo "<script>showindex=1;lightyear.notify('删除成功！', 'success', 3000);</script>";
+    } else {
+        echo "<script>showindex=1;lightyear.notify('文件不存在！', 'danger', 3000);</script>";
+    }
+}
+
+// 上传 APP 图标图片
+if (isset($_POST['submitcon'])) {
+    if (!isset($_FILES['splash']) || $_FILES['splash']['error'] !== UPLOAD_ERR_OK) {
+        echo "<script>showindex=1;lightyear.notify('上传失败，请重试！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 限制大小（800KB）
+    if ($_FILES["splash"]["size"] > 10 * 1024) {
+        echo "<script>showindex=1;lightyear.notify('图片超过10KB！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 验证文件类型（使用 getimagesize 更可靠）
+    $info = getimagesize($_FILES["splash"]["tmp_name"]);
+    if ($info === false || $info['mime'] !== 'image/png') {
+        echo "<script>showindex=1;lightyear.notify('仅支持PNG格式！', 'danger', 3000);</script>";
+        exit;
+    }
+
+    // 生成唯一文件名（避免覆盖）
+    $saveDir = "../icon/";
+    if (!is_dir($saveDir)) {
+        mkdir($saveDir, 0755, true);
+    }
+    $saveName = "icon.png";
+    $savePath = $saveDir . $saveName;
+    if (file_exists($savePath)) {
+        unlink($savePath);
+    }
+
+    if (move_uploaded_file($_FILES["splash"]["tmp_name"], $savePath)) {
+        // 构造 URL
+        $protocol = (
+            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+            (isset($_SERVER['HTTP_FRONT_END_HTTPS']) && $_SERVER['HTTP_FRONT_END_HTTPS'] === 'on')
+        ) ? 'https://' : 'http://';
+
+        $url = $protocol . $_SERVER['HTTP_HOST'] . dirname($_SERVER["SCRIPT_NAME"]);
+        $splashurl = $url . "/icon/" . $saveName;
+
+        echo "<script>showindex=1;lightyear.notify('上传成功！重新编译APK后生效', 'success', 3000);</script>";
+    } else {
+        echo "<script>showindex=1;lightyear.notify('上传失败，无法保存文件！', 'danger', 3000);</script>";
+    }
+}
+
+// 删除图标图片
+if (isset($_POST['submitdelicon'])) {
+    $file = "icon.png";
+    $path = "../icon/" . $file;
+
+    if (file_exists($path) && is_file($path)) {
+        unlink($path);
+        echo "<script>showindex=1;lightyear.notify('删除成功！', 'success', 3000);</script>";
+    } else {
+        echo "<script>showindex=1;lightyear.notify('文件不存在！', 'danger', 3000);</script>";
+    }
+}
+
 
 if (isset($_POST['submitauthor'])) {
     $needauthor = $_POST['needauthor'];
@@ -295,6 +396,7 @@ if (! is_dir ($imgdir)) {
     @mkdir ($imgdir, 0755, true) or die ('创建文件夹失败');
 } 
 $files = glob("../images/*.png");
+$icon_files = glob("../icon/*.png");
 // 初始化变量
 $adinfo = $db->mGet("iptv_config", "value", "where name='adinfo'");
 $adtext = $db->mGet("iptv_config", "value", "where name='adtext'");

@@ -9,6 +9,67 @@ $("#ipchkform").submit();
 <div class="row">
 	<div class="col-lg-12">
 		<div class="card">
+			<div class="card-header"><h4>应用图标</h4></div>
+			<div class="tab-content">
+				<div class="tab-pane active">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>图片名称</th>
+								<th>文件时间</th>
+								<th>图片大小</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+						foreach ($icon_files as $file) {
+							$fctime=date("Y-m-d H:i:s",filectime($file));
+							$fsize=filesize($file);
+                            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' || 
+                                        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ||
+                                        isset($_SERVER['HTTP_FRONT_END_HTTPS']) && $_SERVER['HTTP_FRONT_END_HTTPS'] === 'on' ? 'https://' : 'http://';
+							$url=$protocol.$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; 
+							$splashurl=dirname($url).'/'.$file;
+							$file=basename($file);
+							if($fsize>=1024){
+								$fsize=round($fsize / 1024 * 100) / 100 . ' KB';
+							}else{
+								$fsize=$fsize ." B";
+							}
+							echo "
+						<tr>
+							<td>$file</td>
+							<td>$fctime</td>
+							<td>$fsize</td>
+							<td>
+								<form method='post'>
+									<button class=\"btn btn-w-md btn-secondary\" type='button' onclick=\"javascript:window.open('$splashurl')\">预览</button>
+									<input type='hidden' name='file' value='$file'>
+									<button class=\"btn btn-w-md btn-danger\" type='submit' name='submitdelicon' onclick=\"return confirm('确认删除？')\" >删除</button>
+								</form>
+							</td>
+						</tr>";
+						}
+						unset($files);
+						?>
+	                  </tbody>
+	                </table>
+					<small class="help-block">提示：图标仅支持PNG格式，不超过10KB</small>
+					<form method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<input type="file" name="splash" accept="image/png" />
+						</div>
+						<div class="form-group">
+							<button id="submitIcon" class="btn btn-w-md btn-primary" type="submit" name="submitcon" >开始上传</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="card">
 			<div class="card-header"><h4>应用配置</h4></div>
 			<div class="card-body">
 				<form class="form-inline" method="post" id="weaform" >
@@ -22,10 +83,10 @@ $("#ipchkform").submit();
 					</div>
 					<div class="form-group" style="margin-right: 15px;">
 						<label>应用签名</label>
-						<input class="form-control" type="text" name="app_sign" value="<?php echo $app_sign; ?>" placeholder="应用签名" >
+						<input class="form-control" type="number" name="app_sign" value="<?php echo $app_sign; ?>" placeholder="10000-65535之间" min="10000" max="65535" step="1">
 					</div>
 					<div class="form-group">
-						<button class="btn btn-label btn-primary" type="submit" name="submitappinfo"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>确认提交</button>
+						<button class="btn btn-label btn-primary" type="submit" name="submitappinfo"><label><i class="mdi mdi-checkbox-marked-circle-outline"></i></label>提交编译APK</button>
 					</div>
 				</form>
 			</div>
