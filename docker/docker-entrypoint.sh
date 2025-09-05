@@ -158,4 +158,18 @@ rm -rf "${PACKAGE_BASE}/"
 
 echo "启动服务..."
 nohup crontab_downlist.sh > /dev/null 2>&1 &
-exec /usr/bin/supervisord -c /etc/supervisord.conf  >/dev/null 2>&1
+
+# 启动 MariaDB（后台）
+/usr/bin/mariadbd-safe --datadir=/var/lib/mysql &
+echo "MariaDB 启动中..."
+# 等待数据库启动（可选）
+sleep 5
+echo "MariaDB 已启动"
+
+# 启动 PHP-FPM（后台）
+/usr/sbin/php-fpm8 -F &
+echo "PHP-FPM 已启动"
+
+# 启动 Nginx（前台，占据容器 PID 1）
+echo "Nginx 运行中..."
+/usr/sbin/nginx -g "daemon off;"

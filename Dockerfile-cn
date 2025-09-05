@@ -11,7 +11,7 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsing
 # 安装基础工具、nginx、php8及必要扩展
 RUN apk add --no-cache \
     bash curl \
-    tzdata supervisor nginx \
+    tzdata nginx \
     php8 php8-fpm php8-cli \
     php8-curl php8-dom php8-fileinfo php8-gd php8-iconv \
     php8-intl php8-mbstring php8-mysqli php8-openssl \
@@ -23,18 +23,19 @@ RUN apk add --no-cache \
     sed -i 's/;daemonize = yes/daemonize = no/' /etc/php8/php-fpm.conf; \
     sed -i 's/^user = .*/user = nginx/' /etc/php8/php-fpm.d/www.conf; \
     sed -i 's/^group = .*/group = nginx/' /etc/php8/php-fpm.d/www.conf; \
+    sed -i 's/;clear_env = no/clear_env = no/' /etc/php8/php-fpm.d/www.conf; \
     sed -i 's/#gzip on;/gzip on;/' /etc/nginx/nginx.conf; \
     sed -i 's/^#\(bind-address.*\)/\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's/^\(skip-networking.*\)/#\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's#/bin/ash#/bin/bash#g' /etc/passwd ; \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone; \
+    apk del tzdata ; \
+    rm -rf /usr/share/php8 /usr/lib/php8/tests /var/cache/apk/* /tmp/* ; \
     mkdir -p /var/www/html
 
 
 # 复制 nginx 默认站点配置
 COPY docker/default.conf /etc/nginx/http.d/default.conf
-
-# 复制 supervisord 主配置文件
-COPY docker/supervisord.conf /etc/supervisord.conf
 
 # 复制WEB文件
 COPY iptv /var/www/iptv
