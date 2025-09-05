@@ -6,10 +6,11 @@ ENV TZ=Asia/Shanghai
 ENV PHP_DATE_TIMEZONE=Asia/Shanghai
 
 # 使用国内镜像加速
-#RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories
 
 # 安装基础工具、nginx、php8及必要扩展
 RUN apk add --no-cache \
+    bash curl \
     tzdata supervisor nginx \
     php8 php8-fpm php8-cli \
     php8-curl php8-dom php8-fileinfo php8-gd php8-iconv \
@@ -17,7 +18,7 @@ RUN apk add --no-cache \
     php8-pdo php8-pdo_mysql php8-pdo_sqlite php8-posix \
     php8-simplexml php8-sockets php8-sodium php8-sqlite3 \
     php8-xml php8-xmlreader php8-xmlwriter php8-opcache php8-session \
-    mariadb mariadb-client openjdk8 bash; \
+    mariadb mariadb-client openjdk8 ; \
     cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone; \
     sed -i 's/;daemonize = yes/daemonize = no/' /etc/php8/php-fpm.conf; \
     sed -i 's/^user = .*/user = nginx/' /etc/php8/php-fpm.d/www.conf; \
@@ -27,8 +28,7 @@ RUN apk add --no-cache \
     sed -i 's/^#\(bind-address.*\)/\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's/^\(skip-networking.*\)/#\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's#/bin/ash#/bin/bash#g' /etc/passwd ; \
-    mkdir -p /var/www/html; \
-    mkdir -p /build
+    mkdir -p /var/www/html
 
 
 # 复制 nginx 默认站点配置
@@ -45,15 +45,17 @@ COPY apktool/* /usr/bin/
 COPY rename.sh /usr/bin/rename.sh
 COPY buildapk.sh /usr/bin/buildapk.sh
 COPY rebuild.sh /usr/bin/rebuild.sh
+COPY crontab_downlist.sh /usr/bin/crontab_downlist.sh
 COPY client /client
-COPY docker/docker-entrypoint.sh /usr/local/bin/
+COPY docker/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
+RUN chmod +x /usr/bin/docker-entrypoint.sh && \
     chmod +x /usr/bin/apktool* && \
     chmod +x /usr/bin/rename.sh && \
     chmod +x /usr/bin/buildapk.sh && \
-    chmod +x /usr/bin/rebuild.sh
+    chmod +x /usr/bin/rebuild.sh && \
+    chmod +x /usr/bin/crontab_downlist.sh
 
 # 暴露端口
 EXPOSE 80

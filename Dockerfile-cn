@@ -10,6 +10,7 @@ RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsing
 
 # 安装基础工具、nginx、php8及必要扩展
 RUN apk add --no-cache \
+    bash curl \
     tzdata supervisor nginx \
     php8 php8-fpm php8-cli \
     php8-curl php8-dom php8-fileinfo php8-gd php8-iconv \
@@ -25,8 +26,8 @@ RUN apk add --no-cache \
     sed -i 's/#gzip on;/gzip on;/' /etc/nginx/nginx.conf; \
     sed -i 's/^#\(bind-address.*\)/\1/' /etc/my.cnf.d/mariadb-server.cnf; \
     sed -i 's/^\(skip-networking.*\)/#\1/' /etc/my.cnf.d/mariadb-server.cnf; \
-    mkdir -p /var/www/html; \
-    mkdir -p /build
+    sed -i 's#/bin/ash#/bin/bash#g' /etc/passwd ; \
+    mkdir -p /var/www/html
 
 
 # 复制 nginx 默认站点配置
@@ -43,6 +44,7 @@ COPY apktool/* /usr/bin/
 COPY rename.sh /usr/bin/rename.sh
 COPY buildapk.sh /usr/bin/buildapk.sh
 COPY rebuild.sh /usr/bin/rebuild.sh
+COPY crontab_downlist.sh /usr/bin/crontab_downlist.sh
 COPY client /client
 COPY docker/docker-entrypoint.sh /usr/local/bin/
 

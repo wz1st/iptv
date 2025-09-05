@@ -218,11 +218,16 @@ if (isset($_POST['submit']) && isset($_POST['adtext'])) {
 } 
 
 if (isset($_POST['submitappinfo'])) {
+    $app_sign = isset($_POST['app_sign']) ? intval($_POST['app_sign']) : 10000;
+    if ($app_sign < 10000 || $app_sign > 65535) {
+        $app_sign = 10000;
+    }
     $app_appname = $_POST['app_appname'];
     $app_packagename = $_POST['app_packagename'];
+    $db->mSet("iptv_config", "value='$app_sign'", "where name='app_sign'");
     $db->mSet("iptv_config", "value='$app_appname'", "where name='app_appname'");
     $db->mSet("iptv_config", "value='$app_packagename'", "where name='app_packagename'");
-    exec("nohup rebuild.sh > /var/www/html/rebuild.log 2>&1 &");
+    exec("nohup rebuild.sh > /tmp/rebuild.log 2>&1 &");
     echo"<script>showindex=4;lightyear.notify('保存成功！APK编译中，请稍后刷新查看！', 'success', 3000);</script>";
 } 
 

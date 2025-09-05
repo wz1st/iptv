@@ -235,61 +235,95 @@ if (isset($_POST['addthirdlist'])) {
 // 更新外部列表
 if (isset($_POST['updatelist'])) {
     $category = $_POST['thirdlist'];
-	$listinfo = $db->mGetRow("iptv_category", "url, autocategory", "where name=".$db->safeSQLParam($category));
-	$listurl = $listinfo['url'];
-	$listautocategory = $listinfo['autocategory'];
+    $listinfo = $db->mGetRow("iptv_category", "url, autocategory", "where name=" . $db->safeSQLParam($category));
+    $listurl = $listinfo['url'];
+    $listautocategory = $listinfo['autocategory'];
+
+    // 统一弹窗输出函数
+    function jsAlert($title, $msg, $type = "green") {
+        echo "<script>$.alert({title: '{$title}',content: '{$msg}',type: '{$type}',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+    }
+
+    // 获取远程列表，带超时
+    function getRemoteList($url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
+    }
+
     if ($category == "") {
         echo "<script>lightyear.notify('列表名称不能为空！', 'danger', 3000);</script>";
-    } else { 
-        $srclist = file_get_contents($listurl);
-		$srclist = filterEmoji($srclist);
+    } else {
+        $srclist = getRemoteList($listurl);
+        $srclist = filterEmoji($srclist);
+
         if ($listautocategory == "on") {
             if (strpos($srclist, "#genre#") !== false) {
-				$data = convertDataToArray($srclist);
-				$genreNames = array_keys($data);
-				foreach ($genreNames as $genreItem) {
-					$genreName = trim($genreItem);
-					if (!empty($genreName)) {
-						$genreList = trim($data["$genreName"]);
-						$categoryName = preg_replace('/\s+/', '',  $genreName."(".$category.")");
-						$result = $db->mGetRow("iptv_category", "name", "where autocategory=".$db->safeSQLParam($category));
-						if (strpos($result['name'], $categoryName) !== false) {
-							$addlist = add_channel_list($categoryName, $genreList);
-							if ($addlist !== -1) {
-                                echo "<script>$.alert({title: '成功',content: '更新列表$categoryName 成功！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                $data = convertDataToArray($srclist);
+                $genreNames = array_keys($data);
+
+                foreach ($genreNames as $genreItem) {
+                    $genreName = trim($genreItem);
+                    if (!empty($genreName)) {
+                        $genreList = trim($data[$genreName]);
+                        $categoryName = preg_replace('/\s+/', '', $genreName . "(" . $category . ")");
+
+                        // 判断是否存在该分类
+                        $exists = $db->mGet("iptv_category", "count(*)", "where name=" . $db->safeSQLParam($categoryName));
+
+                        if ($exists > 0) {
+                            $addlist = add_channel_list($categoryName, $genreList);
+                            if ($addlist !== -1) {
+                                jsAlert("成功", "更新列表 {$categoryName} 成功！");
                             } else {
-                                echo "<script>$.alert({title: '失败',content: '更新列表$categoryName 失败！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                                jsAlert("失败", "更新列表 {$categoryName} 失败！", "red");
                             }
-						} else {
-							$numCount = $maxid + 1;
-							$db->mInt("iptv_category", "id,name,psw,type,autocategory", "$numCount,".$db->safeSQLParam($categoryName).",".$db->safeSQLParam($cpass).",".$db->safeSQLParam($categorytype).",".$db->safeSQLParam($category));
-							$showindex = $db->mGet("iptv_category", "count(*)", "where type=".$db->safeSQLParam($categorytype)) - 1;
-							$addlist = add_channel_list($categoryName, $genreList);
-							if ($addlist !== -1) {
-                                echo "<script>$.alert({title: '成功',content: '更新列表$categoryName 成功！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                        } else {
+                            // 计算新 ID
+                            $maxid = $db->mGet("iptv_category", "max(id)");
+                            $numCount = $maxid + 1;
+
+                            $db->mInt("iptv_category", "id,name,psw,type,autocategory", 
+                                "$numCount," . $db->safeSQLParam($categoryName) . "," . 
+                                $db->safeSQLParam($cpass) . "," . 
+                                $db->safeSQLParam($categorytype) . "," . 
+                                $db->safeSQLParam($category));
+
+                            $addlist = add_channel_list($categoryName, $genreList);
+                            if ($addlist !== -1) {
+                                jsAlert("成功", "新增并更新列表 {$categoryName} 成功！");
                             } else {
-                                echo "<script>$.alert({title: '失败',content: '更新列表$categoryName 失败！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                                jsAlert("失败", "新增并更新列表 {$categoryName} 失败！", "red");
                             }
-						}
-					}
-				}
-			} else {
-                $db->mSet("iptv_category", "autocategory=NULL", "where name=".$db->safeSQLParam($category));
-				$addlist = add_channel_list($category, $srclist);
-				if ($addlist !== -1) {
-                    echo "<script>$.alert({title: '成功',content: '更新列表$category 成功！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
-                } else {
-                    echo "<script>$.alert({title: '失败',content: '更新列表$category 失败！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                        }
+                    }
                 }
-			}
-		} else {
-			$addlist = add_channel_list($category, $srclist);
-			if ($addlist !== -1) {
-                echo "<script>$.alert({title: '成功',content: '更新列表$category 成功！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
             } else {
-                echo "<script>$.alert({title: '失败',content: '更新列表$category 失败！',type: 'green',buttons: {confirm: {text: '好',btnClass: 'btn-primary',action: function(){location.replace(location.href);}}}});</script>";
+                // 不含 #genre#，取消自动分类
+                $db->mSet("iptv_category", "autocategory=NULL", "where name=" . $db->safeSQLParam($category));
+                $addlist = add_channel_list($category, $srclist);
+                if ($addlist !== -1) {
+                    jsAlert("成功", "更新列表 {$category} 成功！");
+                } else {
+                    jsAlert("失败", "更新列表 {$category} 失败！", "red");
+                }
             }
-		}
+        } else {
+            // 普通更新
+            $addlist = add_channel_list($category, $srclist);
+            if ($addlist !== -1) {
+                jsAlert("成功", "更新列表 {$category} 成功！");
+            } else {
+                jsAlert("失败", "更新列表 {$category} 失败！", "red");
+            }
+        }
+
+        // 重新排序
         sort_id();
     }
 }
